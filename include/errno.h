@@ -37,6 +37,10 @@ extern int errno;
 #define EINVAL	(22)
 
 
+#ifndef EACCES
+#define EACCES  (13)
+#endif
+
 #ifdef __cplusplus
 }
 #endif
