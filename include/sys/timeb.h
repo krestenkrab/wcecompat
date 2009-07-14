@@ -38,6 +38,7 @@ struct timeb
 	short			timezone;
 	short			dstflag;
 };
+#define _timeb timeb
 
 
 int __cdecl _ftime(struct timeb *tp);

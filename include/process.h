@@ -28,7 +28,7 @@ extern "C" {
 #endif
 
 
-int __cdecl _getpid(void);
+int _getpid(void);
 #define getpid _getpid
 
 
