@@ -46,9 +46,19 @@ extern "C" {
 #define _O_TEXT     0x4000  /* file mode is text (translated) */
 #define _O_BINARY   0x8000  /* file mode is binary (untranslated) */
 
-// FILE is an opaque handle in Win CE. Users have no access to the internals
+
 #ifndef _FILE_DEFINED
-typedef unsigned char FILE;
+	struct _iobuf {
+		char *_ptr;
+		int   _cnt;
+		char *_base;
+		int   _flag;
+		int   _file;
+		int   _charbuf;
+		int   _bufsiz;
+		char *_tmpfname;
+	};
+typedef struct _iobuf FILE;
 #define _FILE_DEFINED
 #endif
 
@@ -107,6 +117,7 @@ _CRTIMP int    __cdecl vfprintf(FILE *, const char *, va_list);
 
 // functions for general buffered file handling in either ANSI or Wide
 _CRTIMP FILE*  __cdecl _getstdfilex(int);
+_CRTIMP FILE*  __cdecl __iob_func(void);
 _CRTIMP int    __cdecl fclose(FILE *);
 _CRTIMP int    __cdecl _fcloseall(void);
 _CRTIMP size_t __cdecl fread(void *, size_t, size_t, FILE *);
