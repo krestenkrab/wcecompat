@@ -60,6 +60,7 @@ _CRTIMP char* __cdecl strrchr(const char* s, int c)
 	{
 		if (*p == c)
 			return (char*)p;
+		--p;
 	}
 	return NULL;
 }
