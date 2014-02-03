@@ -1,6 +1,6 @@
-!INCLUDE <wceconfig.mak>
+!INCLUDE <wcedefs.mak>
 
-CFLAGS=/W3 /WX /Ox /O2 /Ob2 /GF /Gy /nologo $(WCETARGETDEFS) -Zc:wchar_t- -DUNICODE -D_UNICODE -DWIN32 -DWIN32_LEAN_AND_MEAN -Iinclude -D_WINDLL -D_DLL /Foobj/ -D_MSC_VER=1200
+CFLAGS=/W3 /WX /Ox /O2 /Ob2 /GF /Gy /nologo $(WCETARGETDEFS) -DUNICODE -D_UNICODE -DWIN32 -DWIN32_LEAN_AND_MEAN -Iinclude -D_WINDLL -D_DLL /Foobj/ -D_MSC_VER=1200
 
 SRC =							\
 	src/args.cpp				\
@@ -11,6 +11,7 @@ SRC =							\
 	src/io.cpp					\
 	src/pipe.cpp				\
 	src/process.c				\
+	src/redir.cpp				\
 	src/signal.c				\
 	src/stat.cpp				\
 	src/stdio_extras.cpp		\
@@ -57,7 +58,7 @@ clean:
 	@del obj\*.obj
 
 lib\wcecompat.lib: lib $(OBJS) makefile
-	@lib /nologo /out:lib\wcecompat.lib $(LFLAGS) $(OBJS)
+	@lib /nologo /out:lib\wcecompat.lib $(OBJS)
 
 lib\wcecompatex.lib: lib $(OBJS) makefile
 	@lib /nologo /out:lib\wcecompatex.lib $(OBJS)

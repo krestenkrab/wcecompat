@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="wcecompat"
 	ProjectGUID="{79BDFEBE-DE7A-4FAB-A4F3-3102D5EEC9CA}"
 	RootNamespace="wcecompat"
@@ -24,8 +24,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="lib\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="obj\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			>
@@ -48,9 +48,11 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="0"
+				AdditionalIncludeDirectories="Include"
 				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;DEBUG;_LIB;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE"
 				MinimalRebuild="true"
 				RuntimeLibrary="1"
+				TreatWChar_tAsBuiltInType="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
@@ -101,8 +103,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Windows Mobile 5.0 Smartphone SDK (ARMV4I)"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="lib\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="obj\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			>
@@ -125,9 +127,11 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="0"
+				AdditionalIncludeDirectories="Include"
 				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;DEBUG;_LIB;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE"
 				MinimalRebuild="true"
 				RuntimeLibrary="1"
+				TreatWChar_tAsBuiltInType="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
@@ -178,8 +182,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Windows Mobile 6 Professional SDK (ARMV4I)"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="lib\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="obj\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			>
@@ -202,9 +206,11 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="0"
+				AdditionalIncludeDirectories="Include"
 				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;DEBUG;_LIB;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE"
 				MinimalRebuild="true"
 				RuntimeLibrary="1"
+				TreatWChar_tAsBuiltInType="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
@@ -255,8 +261,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="lib\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="obj\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			>
@@ -280,8 +286,10 @@
 				ExecutionBucket="7"
 				Optimization="2"
 				FavorSizeOrSpeed="2"
+				AdditionalIncludeDirectories="Include"
 				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;_LIB;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE"
 				RuntimeLibrary="0"
+				TreatWChar_tAsBuiltInType="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
@@ -332,8 +340,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Windows Mobile 5.0 Smartphone SDK (ARMV4I)"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="lib\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="obj\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			>
@@ -357,8 +365,10 @@
 				ExecutionBucket="7"
 				Optimization="2"
 				FavorSizeOrSpeed="2"
+				AdditionalIncludeDirectories="Include"
 				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;_LIB;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE"
 				RuntimeLibrary="0"
+				TreatWChar_tAsBuiltInType="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
@@ -409,8 +419,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Windows Mobile 6 Professional SDK (ARMV4I)"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="lib\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="obj\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			>
@@ -434,8 +444,10 @@
 				ExecutionBucket="7"
 				Optimization="2"
 				FavorSizeOrSpeed="2"
+				AdditionalIncludeDirectories="Include"
 				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;_LIB;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE"
 				RuntimeLibrary="0"
+				TreatWChar_tAsBuiltInType="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
@@ -506,14 +518,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\conio.c"
-				>
-			</File>
-			<File
-				RelativePath=".\src\direct.c"
-				>
-			</File>
-			<File
 				RelativePath=".\src\env.cpp"
 				>
 			</File>
@@ -522,7 +526,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\io.c"
+				RelativePath=".\src\io.cpp"
 				>
 			</File>
 			<File
@@ -558,7 +562,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\time.c"
+				RelativePath=".\src\time.cpp"
 				>
 			</File>
 			<File
@@ -567,10 +571,6 @@
 			</File>
 			<File
 				RelativePath=".\src\ts_string.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\utime.cpp"
 				>
 			</File>
 			<File
@@ -708,11 +708,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\sys\time.h"
+				RelativePath=".\include\time.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\time.h"
+				RelativePath=".\include\sys\time.h"
 				>
 			</File>
 			<File

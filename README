@@ -22,15 +22,14 @@ This is work in progress and the content might change at any point in time.
 REQUIREMENTS
 ------------
 wcecompat requires the following software:
-- Perl (to create the makefile configuration)
-- Embedded Visual Studio 3/4 or Visual Studio 2005/following
+- Embedded Visual Studio 2008
 - A Windows CE SDK
 
 
 BUILDING
 --------
 - Ensure your environment is setup for crosscompilation for the target Windows
-  CE platform. Refer to the documentation in case you are not sure how to do so.
+  CE platform.
 - Depending on your version of Windows CE, you will have to set some environment
   variables. These are
    * OSVERSION: A string composed by "WCE" plus the version number ,eg. WCE500
@@ -40,16 +39,8 @@ BUILDING
    * TARGETCPU: The CPU architecture the SDK is designed for (eg. X86, ARMV4I,...)
    * PLATFORM : For Windows CE previous to 5.00 this might be needed, but is
                 deprecated from this version on.
-- Call 'perl config.pl' to create the makefile configuration for your setup. In case
-  you do not have perl available, continue reading below to create your own 
-  configuration without using perl.
+- WM6_ARMV4I_env.bat satisfies the environment requirements for Windows Mobile 6.
 - Call 'nmake'
 - After successful compilation you will have "wcecompat.lib" and "wcecompatex.lib"
   in your lib directory. These libraries are generated statically and are supposed
   to be linked into your project.
-
-
-MANUAL MAKEFILE CONFIGURATION
------------------------------
-If Perl is not available, following steps are needed to build wcecompat successfully:
-- foo ### TODO:

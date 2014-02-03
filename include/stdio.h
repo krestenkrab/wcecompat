@@ -58,7 +58,11 @@ extern "C" {
 		int   _bufsiz;
 		char *_tmpfname;
 	};
+#if _WIN32_WCE < 0x500 || !defined(COREDLL_CORESIOA)
+typedef void FILE;
+#else
 typedef struct _iobuf FILE;
+#endif
 #define _FILE_DEFINED
 #endif
 
