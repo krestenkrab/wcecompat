@@ -2,8 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="wcecompat"
-	ProjectGUID="{1DE1C3AF-B464-41F2-8BE9-B08F075C8CD1}"
+	Name="wcecompatex"
+	ProjectGUID="{79BDFEBE-DE7A-4FAB-A4F3-3102D5EEC9CA}"
 	RootNamespace="wcecompat"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
@@ -26,7 +26,7 @@
 			Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 			OutputDirectory="lib\$(ProjectName)\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="obj\$(ProjectName)\$(PlatformName)\$(ConfigurationName)"
-			ConfigurationType="2"
+			ConfigurationType="4"
 			CharacterSet="2"
 			>
 			<Tool
@@ -72,9 +72,9 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions=" /SUBSYSTEM:WINDOWSCE,5.01"
-				ModuleDefinitionFile="src\wcecompat.def"
+				Name="VCLibrarianTool"
+				AdditionalOptions=" /subsystem:windowsce,5.01"
+				OutputFile="$(OutDir)/$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -107,7 +107,7 @@
 			Name="Debug|Windows Mobile 5.0 Smartphone SDK (ARMV4I)"
 			OutputDirectory="lib\$(ProjectName)\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="obj\$(ProjectName)\$(PlatformName)\$(ConfigurationName)"
-			ConfigurationType="2"
+			ConfigurationType="4"
 			CharacterSet="2"
 			>
 			<Tool
@@ -153,9 +153,9 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions=" /SUBSYSTEM:WINDOWSCE,5.01"
-				ModuleDefinitionFile="src\wcecompat.def"
+				Name="VCLibrarianTool"
+				AdditionalOptions=" /subsystem:windowsce,5.01"
+				OutputFile="$(OutDir)/$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -188,7 +188,7 @@
 			Name="Debug|Windows Mobile 6 Professional SDK (ARMV4I)"
 			OutputDirectory="lib\$(ProjectName)\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="obj\$(ProjectName)\$(PlatformName)\$(ConfigurationName)"
-			ConfigurationType="2"
+			ConfigurationType="4"
 			CharacterSet="2"
 			>
 			<Tool
@@ -234,10 +234,9 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions=" /SUBSYSTEM:WINDOWSCE,5.02"
-				OutputFile="$(OutDir)\$(ProjectName).dll"
-				ModuleDefinitionFile="src\wcecompat.def"
+				Name="VCLibrarianTool"
+				AdditionalOptions=" /subsystem:windowsce,5.02"
+				OutputFile="$(OutDir)/$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -270,7 +269,7 @@
 			Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 			OutputDirectory="lib\$(ProjectName)\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="obj\$(ProjectName)\$(PlatformName)\$(ConfigurationName)"
-			ConfigurationType="2"
+			ConfigurationType="4"
 			CharacterSet="2"
 			>
 			<Tool
@@ -316,9 +315,9 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions=" /SUBSYSTEM:WINDOWSCE,5.01"
-				ModuleDefinitionFile="src\wcecompat.def"
+				Name="VCLibrarianTool"
+				AdditionalOptions=" /subsystem:windowsce,5.01"
+				OutputFile="$(OutDir)/$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -351,7 +350,7 @@
 			Name="Release|Windows Mobile 5.0 Smartphone SDK (ARMV4I)"
 			OutputDirectory="lib\$(ProjectName)\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="obj\$(ProjectName)\$(PlatformName)\$(ConfigurationName)"
-			ConfigurationType="2"
+			ConfigurationType="4"
 			CharacterSet="2"
 			>
 			<Tool
@@ -397,9 +396,9 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions=" /SUBSYSTEM:WINDOWSCE,5.01"
-				ModuleDefinitionFile="src\wcecompat.def"
+				Name="VCLibrarianTool"
+				AdditionalOptions=" /subsystem:windowsce,5.01"
+				OutputFile="$(OutDir)/$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -432,7 +431,7 @@
 			Name="Release|Windows Mobile 6 Professional SDK (ARMV4I)"
 			OutputDirectory="lib\$(ProjectName)\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="obj\$(ProjectName)\$(PlatformName)\$(ConfigurationName)"
-			ConfigurationType="2"
+			ConfigurationType="4"
 			CharacterSet="2"
 			>
 			<Tool
@@ -478,10 +477,9 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions=" /SUBSYSTEM:WINDOWSCE,5.02"
-				OutputFile="$(OutDir)\$(ProjectName).dll"
-				ModuleDefinitionFile="src\wcecompat.def"
+				Name="VCLibrarianTool"
+				AdditionalOptions=" /subsystem:windowsce,5.02"
+				OutputFile="$(OutDir)/$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -692,6 +690,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\src\winmain.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\winsock_extras.cpp"
 				>
 			</File>
@@ -833,7 +835,7 @@
 			>
 		</Filter>
 		<File
-			RelativePath=".\src\wcecompat.def"
+			RelativePath=".\makefile"
 			>
 		</File>
 	</Files>

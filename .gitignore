@@ -1,10 +1,7 @@
-Makefile.Debug
-Makefile.Release
-debug/*
-vc80.pdb
-release/*
-wceconfig.mak
 lib/*
 obj/*
-tmp/*
 
+# Microsoft Visual Studio files
+*.ncb
+*.suo
+*.user

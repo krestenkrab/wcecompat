@@ -45,9 +45,6 @@ int __cdecl _unlink(const char *pathname);
 #define write _write
 #define unlink _unlink
 
-#define _read _wceread
-#define _write _wcewrite
-
 #ifdef __cplusplus
 }
 #endif

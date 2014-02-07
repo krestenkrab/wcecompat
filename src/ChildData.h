@@ -25,8 +25,9 @@
 
 #include "args.h"
 
+#define _DLLEXPORT __declspec(dllexport)
 
-class ChildData
+class _DLLEXPORT ChildData
 {
 	typedef struct
 	{
