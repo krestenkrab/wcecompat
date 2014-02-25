@@ -39,9 +39,3 @@ int setvbuf(FILE* /*stream*/, char* /*buffer*/, int /*mode*/, size_t /*size*/)
 	return 0;
 }
 #endif
-
-FILE* __cdecl __iob_func()
-{
-	static FILE *standardOutputs[] = { stdin, stdout, stderr };
-	return standardOutputs[0];
-}

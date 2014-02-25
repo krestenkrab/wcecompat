@@ -111,7 +111,6 @@ _CRTIMP int    __cdecl ungetc(int, FILE *);
 
 // ANSI functions for general buffered file handling
 _CRTIMP FILE * __cdecl fopen(const char *, const char *);
-_CRTIMP FILE*  __cdecl fdopen(int, const char *);
 _CRTIMP int    __cdecl fscanf(FILE *, const char *, ...);
 _CRTIMP int    __cdecl fprintf(FILE *, const char *, ...);
 _CRTIMP int    __cdecl vfprintf(FILE *, const char *, va_list);
@@ -121,7 +120,6 @@ _CRTIMP int    __cdecl vfprintf(FILE *, const char *, va_list);
 
 // functions for general buffered file handling in either ANSI or Wide
 _CRTIMP FILE*  __cdecl _getstdfilex(int);
-_CRTIMP FILE*  __cdecl __iob_func(void);
 _CRTIMP int    __cdecl fclose(FILE *);
 _CRTIMP int    __cdecl _fcloseall(void);
 _CRTIMP size_t __cdecl fread(void *, size_t, size_t, FILE *);
