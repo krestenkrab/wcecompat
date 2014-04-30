@@ -51,3 +51,46 @@ EXPORTS
 	stat											@48
 	strerror										@49
 	time											@50
+	
+	?_commit@@YAHH@Z								@51	;(int __cdecl _commit(int))
+	?_eof@@YAHH@Z									@52	;(int __cdecl _eof(int))
+	?_tell@@YAJH@Z									@53	;(long __cdecl _tell(int))
+	?fds_from_index@@YAPAU_FD_STRUCT@@H@Z			@54	;(struct _FD_STRUCT * __cdecl fds_from_index(int))
+	?initStdHandles@@YA_NXZ							@55	;(bool __cdecl initStdHandles(void))
+	_fileno											@56
+	_getstdfilex									@57
+	_setmode										@58
+	_wfdopen										@59
+	_wfopen											@60
+	_wfreopen										@61
+	_wopen											@62
+	clearerr										@63
+	fclose											@64
+	feof											@65
+	ferror											@66
+	fflush											@67
+	fgetc											@68
+	fgetpos											@69
+	fgets											@70
+	fgetwc											@71
+	fgetws											@72
+	fopen											@73
+	fprintf											@74
+	fputc											@75
+	fputs											@76
+	fputwc											@77
+	fputws											@78
+	fread											@79
+	fscanf											@80
+	fseek											@81
+	fsetpos											@82
+	ftell											@83
+	fwprintf										@84
+	fwrite											@85
+	fwscanf											@86
+	printf											@87
+	setvbuf											@88
+	ungetc											@89
+	ungetwc											@90
+	vfprintf										@91
+	vfwprintf										@92
