@@ -14,30 +14,30 @@ EXPORTS
 	?unicode2ascii@@YAXPBGPAD@Z						@11	;(void __cdecl unicode2ascii(unsigned short const *,char *))
 	?unicode2ascii@@YAXPBGPADH@Z					@12	;(void __cdecl unicode2ascii(unsigned short const *,char *,int))
 	?w32_filetime_to_time_t@@YAKPAU_FILETIME@@@Z	@13	;(unsigned long __cdecl w32_filetime_to_time_t(struct _FILETIME *))
-	__iob_func										@14
+;	__iob_func										@14
 	_access											@15
 	_assert											@16
-	_close											@17
+;	_close											@17
 	_environ										@18
 	_fmode											@19
 	_ftime											@20
 	_getpid											@21
-	_kbhit											@22
-	_lseek											@23
-	_open											@24
+;	_kbhit											@22
+;	_lseek											@23
+;	_open											@24
 	_putenv											@25
-	_read											@26
+;	_read											@26
 	_unlink											@27
 	_wenviron										@28
 	_wputenv										@29
-	_write											@30
+;	_write											@30
 	abort											@31
 	bsearch											@32
 	clock											@33
 	closePipe										@34
 	createPipe										@35
 	errno											@36
-	fdopen											@37
+;	fdopen											@37
 	getenv											@38
 	getservbyname									@39
 	gmtime											@40
