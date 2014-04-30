@@ -22,13 +22,14 @@
 #ifndef __wcecompat__SYS__TYPES_H__
 #define __wcecompat__SYS__TYPES_H__
 
+#include <crtdefs.h>
 
 #ifndef _SIZE_T_DEFINED
 typedef unsigned int size_t;
 #define _SIZE_T_DEFINED
 #endif
 #ifndef _OFF_T_DEFINED
-typedef long off_t;
+//typedef long off_t;
 #define _OFF_T_DEFINED
 #endif
 

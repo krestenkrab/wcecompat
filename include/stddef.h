@@ -26,6 +26,8 @@
 extern "C" {
 #endif
 
+#include <crtdefs.h>
+
 /* Define _CRTAPI1 (for compatibility with the NT SDK) */
 #ifndef _CRTAPI1
 #if     _MSC_VER >= 800 && _M_IX86 >= 300

@@ -22,6 +22,7 @@
 #ifndef __wcecompat__STDIO_H__
 #define __wcecompat__STDIO_H__
 
+#include <ceconfig.h>
 #include "stddef.h"
 //#include "sys/types.h"	/* size_t */
 #include "stdarg.h"

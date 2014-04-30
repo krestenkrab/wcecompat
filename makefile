@@ -1,6 +1,6 @@
 !INCLUDE <wcedefs.mak>
 
-CFLAGS=/W3 /WX /Ox /O2 /Ob2 /GF /Gy /Zl /nologo $(WCETARGETDEFS) /DUNICODE /D_UNICODE /DWIN32 /DWIN32_LEAN_AND_MEAN /Iinclude /D_WINDLL /D_DLL /Foobj/ /Fdlib/wcecompatex.pdb
+CFLAGS=/W3 /Ox /O2 /Ob2 /GF /Gy /Zl /nologo $(WCETARGETDEFS) /DUNICODE /D_UNICODE /DWIN32 /D_USE_32BIT_TIME_T /DWIN32_LEAN_AND_MEAN /Iinclude /D_WINDLL /D_DLL /Foobj/ /Fdlib/wcecompatex.pdb
 
 !IF "$(WCEPLATFORM)"=="MS_POCKET_PC_2000"
 CFLAGS=$(CFLAGS) /DWIN32_PLATFORM_PSPC
@@ -36,6 +36,7 @@ SRC =							\
 	src/stdio_extras.cpp		\
 	src/stdlib_extras.cpp		\
 	src/string_extras.cpp		\
+	src/time_ce.cpp				\
 	src/time.cpp				\
 	src/timeb.cpp				\
 	src/ts_string.cpp			\
