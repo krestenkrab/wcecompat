@@ -491,10 +491,15 @@ int dayOfYear(int year, int month, int day)
 }
 
 
-static struct tm st_tm;
+static struct tm _st_tm;
 
 
 struct tm* localtime(const time_t* clock)
+{
+  return localtime_r(clock, &_st_tm);
+}
+
+struct tm* localtime_r(const time_t* clock, struct tm *st_tm)
 {
 	FILETIME				ftUtc;
 	FILETIME				ftLocal;
@@ -523,26 +528,31 @@ struct tm* localtime(const time_t* clock)
 	tziResult = GetTimeZoneInformation(&tzi);
 
 	// fill return structure
-	st_tm.tm_sec = stLocal.wSecond;
-	st_tm.tm_min = stLocal.wMinute;
-	st_tm.tm_hour = stLocal.wHour;
-	st_tm.tm_mday = stLocal.wDay;
-	st_tm.tm_mon = stLocal.wMonth-1;
-	st_tm.tm_year = stLocal.wYear-1900;
-	st_tm.tm_wday = stLocal.wDayOfWeek;
-	st_tm.tm_yday = dayOfYear(stLocal.wYear, stLocal.wMonth-1, stLocal.wDay);
+	st_tm->tm_sec = stLocal.wSecond;
+	st_tm->tm_min = stLocal.wMinute;
+	st_tm->tm_hour = stLocal.wHour;
+	st_tm->tm_mday = stLocal.wDay;
+	st_tm->tm_mon = stLocal.wMonth-1;
+	st_tm->tm_year = stLocal.wYear-1900;
+	st_tm->tm_wday = stLocal.wDayOfWeek;
+	st_tm->tm_yday = dayOfYear(stLocal.wYear, stLocal.wMonth-1, stLocal.wDay);
 	if (tziResult == TIME_ZONE_ID_UNKNOWN)
-		st_tm.tm_isdst = -1;
+		st_tm->tm_isdst = -1;
 	else if (tziResult == TIME_ZONE_ID_STANDARD)
-		st_tm.tm_isdst = 0;
+		st_tm->tm_isdst = 0;
 	else if (tziResult == TIME_ZONE_ID_DAYLIGHT)
-		st_tm.tm_isdst = 1;
+		st_tm->tm_isdst = 1;
 
-	return &st_tm;
+	return st_tm;
 }
 
 
 struct tm* gmtime(const time_t* clock)
+{
+  return gmtime_r(clock, &_st_tm);
+}
+ 
+struct tm* gmtime_r(const time_t* clock,  struct tm* st_tm)
 {
 	FILETIME	ftLocal;
 	FILETIME	ftUtc;
@@ -566,15 +576,15 @@ struct tm* gmtime(const time_t* clock)
 		return NULL;
 
 	// fill return structure
-	st_tm.tm_sec = stUtc.wSecond;
-	st_tm.tm_min = stUtc.wMinute;
-	st_tm.tm_hour = stUtc.wHour;
-	st_tm.tm_mday = stUtc.wDay;
-	st_tm.tm_mon = stUtc.wMonth-1;
-	st_tm.tm_year = stUtc.wYear-1900;
-	st_tm.tm_wday = stUtc.wDayOfWeek;
-	st_tm.tm_yday = dayOfYear(stUtc.wYear, stUtc.wMonth-1, stUtc.wDay);
-	st_tm.tm_isdst = 0;
+	st_tm->tm_sec = stUtc.wSecond;
+	st_tm->tm_min = stUtc.wMinute;
+	st_tm->tm_hour = stUtc.wHour;
+	st_tm->tm_mday = stUtc.wDay;
+	st_tm->tm_mon = stUtc.wMonth-1;
+	st_tm->tm_year = stUtc.wYear-1900;
+	st_tm->tm_wday = stUtc.wDayOfWeek;
+	st_tm->tm_yday = dayOfYear(stUtc.wYear, stUtc.wMonth-1, stUtc.wDay);
+	st_tm->tm_isdst = 0;
 
-	return &st_tm;
+	return st_tm;
 }

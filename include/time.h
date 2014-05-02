@@ -51,7 +51,11 @@ struct tm
 };
 
 struct tm* localtime(const time_t* clock);
+  struct tm* localtime_r(const time_t* clock, struct tm *ret);
 struct tm * __cdecl gmtime(const time_t *clock);
+  struct tm * __cdecl gmtime_r(const time_t *clock, struct tm *ret);
+
+#include "time_ce.h"
 
 
 #ifdef __cplusplus

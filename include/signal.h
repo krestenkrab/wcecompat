@@ -33,6 +33,11 @@ typedef void(* sighandler_t)(int);
 int raise(int sig);
 void* signal(int sig, void* func);
 
+#define SIG_DFL 0
+#ifndef SIGINT
+#define SIGINT 0
+#endif
+
 #ifdef __cplusplus
 }
 #endif

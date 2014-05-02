@@ -39,6 +39,7 @@ _CRTIMP size_t    __cdecl wcscspn(const wchar_t *, const wchar_t *);
 _CRTIMP size_t    __cdecl wcslen(const wchar_t *);
 _CRTIMP size_t    __cdecl mbstowcs(wchar_t *wcstr, const char *mbstr, size_t count);
 _CRTIMP size_t    __cdecl wcstombs(char *mbstr, const wchar_t *wcstr, size_t count);
+_CRTIMP errno_t    __cdecl wcstombs_s(size_t *count_out, char *mbstr, size_t count_in1, const wchar_t *wcstr, size_t count_in2);
 _CRTIMP wchar_t * __cdecl wcsncat(wchar_t *, const wchar_t *, size_t);
 _CRTIMP int       __cdecl wcsncmp(const wchar_t *, const wchar_t *, size_t);
 _CRTIMP wchar_t * __cdecl wcsncpy(wchar_t *, const wchar_t *, size_t);

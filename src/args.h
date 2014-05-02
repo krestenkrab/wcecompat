@@ -28,7 +28,7 @@
 
 // generate argc/argv from program name and lpCmdLine
 // returns 0 on failure, or argc on success
-int processCmdLine(LPTSTR lpCmdLine, char*** pArgv);
+int __declspec(dllexport) processCmdLine(LPTSTR lpCmdLine, char*** pArgv);
 
 
 enum RedirType {

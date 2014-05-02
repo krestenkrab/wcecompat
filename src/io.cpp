@@ -22,21 +22,92 @@
 #include <io.h>
 #include <stdio.h>
 #include <errno.h>
+#include <conio.h>
+#include "ts_string.h"
 
-
-int access(const char* /*pathname*/, int /*mode*/)
+int _waccess( const wchar_t *path, int mode )
 {
-//	if (fprintf(stderr, "NOT IMPLEMENTED: access(pathname=%s, mode=%d)\n", pathname, mode) <= 0)
-//		printf("NOT IMPLEMENTED: access(pathname=%s, mode=%d)\n", pathname, mode);
-	errno = -1;
-	return -1;
+    SHFILEINFO fi;
+    if( !SHGetFileInfo( path, 0, &fi, sizeof(fi), SHGFI_ATTRIBUTES ) )
+    {
+        errno = ENOENT;
+        return -1;
+    }
+    // existence ?
+    if( mode == 0 )
+      {
+	errno = ENOENT;
+        return 0;
+      }
+    // write permission ?
+    if( mode & 2 )
+    {
+        if( fi.dwAttributes & SFGAO_READONLY )
+        {
+            errno = EACCES;
+            return -1;
+        }
+    }
+    return 0;
+}
+
+int access(const char* path, int mode)
+{
+    wchar_t wpath[_MAX_PATH];
+    
+    if( !MultiByteToWideChar( CP_ACP, 0, path, -1, wpath, _MAX_PATH ) )
+    {
+        errno = ENOENT;
+        return -1;
+    }
+    return _waccess( wpath, mode );
 }
 
 
-int unlink(const char* /*pathname*/)
+FILE* freopen(const char* filename, const char* mode, FILE* file)
 {
-//	if (fprintf(stderr, "NOT IMPLEMENTED: unlink(pathname=%s)\n", pathname) <= 0)
-//		printf("NOT IMPLEMENTED: unlink(pathname=%s)\n", pathname);
-	errno = -1;
-	return -1;
+  wchar_t* wfilename = ts_strdup_ascii_to_unicode(filename);
+  wchar_t* wmode = (mode == NULL) ? NULL : ts_strdup_ascii_to_unicode(mode);
+  FILE* result = _wfreopen(wfilename, wmode, file);
+  free(wfilename);
+  free(wmode);
+  return result;
+}
+
+int rename(const char *oldfile, const char *newfile)
+{
+    int res;    
+    size_t lenold;
+    size_t lennew;
+    wchar_t *wsold;
+    wchar_t *wsnew;
+    
+    /* Covert filename buffer to Unicode. */
+
+    /* Old filename */
+    lenold = MultiByteToWideChar (CP_ACP, 0, oldfile, -1, NULL, 0) ;
+    wsold = (wchar_t*)malloc(sizeof(wchar_t) * lenold);
+    MultiByteToWideChar( CP_ACP, 0, oldfile, -1, wsold, lenold);
+    
+    /* New filename */
+    lennew = MultiByteToWideChar (CP_ACP, 0, newfile, -1, NULL, 0) ;
+    wsnew = (wchar_t*)malloc(sizeof(wchar_t) * lennew);
+    MultiByteToWideChar(CP_ACP, 0, newfile, -1, wsnew, lennew);
+
+    /* Delete file using Win32 CE API call */
+    res = MoveFile(wsold, wsnew);
+    
+    /* Free wide-char string */
+    free(wsold);
+    free(wsnew);
+    
+    if (res)
+        return 0; /* success */
+    else
+        return -1;
+}
+
+int _kbhit()
+{
+  return 0;
 }

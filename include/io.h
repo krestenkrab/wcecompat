@@ -36,6 +36,8 @@ long __cdecl _lseek(int fd, long offset, int whence);
 int __cdecl _read(int fd, void *buffer, unsigned int count);
 int __cdecl _write(int fd, const void *buffer, unsigned int count);
 int __cdecl _unlink(const char *pathname);
+int __cdecl _ftruncate(int fd, long length);
+
 #define access _access
 #define open _open
 #define wopen _wopen
@@ -44,6 +46,41 @@ int __cdecl _unlink(const char *pathname);
 #define read _read
 #define write _write
 #define unlink _unlink
+#define ftruncate _ftruncate
+
+
+#ifndef O_NONBLOCK      /* Non Blocking Open */
+# define O_NONBLOCK      00004
+#endif
+
+#ifndef S_ISDIR
+# define S_ISDIR(mode)  (((mode) & (_S_IFMT)) == (_S_IFDIR))
+#endif /* S_ISDIR */
+
+#ifndef S_ISREG
+# define S_ISREG(mode)  (((mode) & (_S_IFMT)) == (_S_IFREG))
+#endif /* S_ISREG */
+
+#ifndef S_ISLNK
+# define S_ISLNK(mode)  (((mode) & _S_IFMT) == S_IFLNK)
+#endif /* S_ISLNK */
+
+#ifndef S_IXUSR
+# define S_IXUSR                        0000100 /* execute/search permission, */
+# define S_IXGRP                        0000010 /* execute/search permission, */
+# define S_IXOTH                        0000001 /* execute/search permission, */
+# define _S_IWUSR                       0000200 /* write permission, */
+# define S_IWUSR                        _S_IWUSR        /* write permission, owner */
+# define S_IWGRP                        0000020 /* write permission, group */
+# define S_IWOTH                        0000002 /* write permission, other */
+# define S_IRUSR                        0000400 /* read permission, owner */
+# define S_IRGRP                        0000040 /* read permission, group */
+# define S_IROTH                        0000004 /* read permission, other */
+# define S_IRWXU                        0000700 /* read, write, execute */
+# define S_IRWXG                        0000070 /* read, write, execute */
+# define S_IRWXO                        0000007 /* read, write, execute */
+#endif /* S_IXUSR */
+
 
 #ifdef __cplusplus
 }

@@ -1,6 +1,6 @@
 !INCLUDE <wcedefs.mak>
 
-CFLAGS=/W3 /Ox /O2 /Ob2 /GF /Gy /Zl /nologo $(WCETARGETDEFS) /DUNICODE /D_UNICODE /DWIN32 /D_USE_32BIT_TIME_T /DWIN32_LEAN_AND_MEAN /Iinclude /D_WINDLL /D_DLL /Foobj/ /Fdlib/wcecompatex.pdb
+CFLAGS=/MT /W3 /Ox /O2 /Ob2 /GF /Gy /Zl /nologo $(WCETARGETDEFS) /DUNICODE /D_UNICODE /DWIN32 /D_USE_32BIT_TIME_T /DWIN32_LEAN_AND_MEAN /Iinclude /D_WINDLL /D_DLL /Foobj/ /Fdlib/wcecompat.pdb
 
 !IF "$(WCEPLATFORM)"=="MS_POCKET_PC_2000"
 CFLAGS=$(CFLAGS) /DWIN32_PLATFORM_PSPC
@@ -19,7 +19,7 @@ LFLAGS=/DEF:"src\wcecompat.def" /DLL /MACHINE:$(WCELDMACHINE) /SUBSYSTEM:WINDOWS
 LFLAGS=/DEF:"src\wcecompatex.def" /DLL /MACHINE:$(WCELDMACHINE) /SUBSYSTEM:WINDOWSCE,$(WCELDVERSION) /NODEFAULTLIB
 !ENDIF
 
-CORELIBS=coredll.lib corelibc.lib ole32.lib oleaut32.lib uuid.lib commctrl.lib
+CORELIBS=coredll.lib corelibc.lib ole32.lib oleaut32.lib uuid.lib commctrl.lib ws2.lib
 
 SRC =							\
 	src/args.cpp				\
@@ -28,11 +28,11 @@ SRC =							\
 	src/env.cpp					\
 	src/errno.cpp				\
 	src/io.cpp					\
+	src/tmpfile.cpp					\
 	src/pipe.cpp				\
 	src/process.c				\
-	src/redir.cpp				\
 	src/signal.c				\
-	src/stat.cpp				\
+	src/file.cpp				\
 	src/stdio_extras.cpp		\
 	src/stdlib_extras.cpp		\
 	src/string_extras.cpp		\
@@ -40,7 +40,8 @@ SRC =							\
 	src/time.cpp				\
 	src/timeb.cpp				\
 	src/ts_string.cpp			\
-	src/winsock_extras.cpp
+	src/winsock_extras.cpp		\
+	src/inet_pton.c
 
 !IF "$(WCEVERSION)"=="211"
 SRC =							\
@@ -78,11 +79,14 @@ clean:
 	@echo Deleting object files...
 	@del obj\*.obj
 
-lib\wcecompat.lib: lib $(OBJS) makefile
-	@link /nologo /out:lib\wcecompat.dll /pdb:lib\wcecompat.pdb $(LFLAGS) $(OBJS) $(CORELIBS)
+lib\wcecompat.lib: lib $(OBJS) makefile src\wcecompat.def
+	@echo creating lib\wcecompat.dll
+	@link /nologo /out:lib/wcecompat.dll /pdb:lib\wcecompat.pdb $(LFLAGS) $(OBJS) $(CORELIBS)
 
 lib\wcecompatex.lib: lib $(OBJS) obj/winmain.obj makefile
+	@echo creating lib\wcecompatex.lib (static lib)
 	@lib /nologo /out:lib\wcecompatex.lib $(OBJS) obj/winmain.obj
 
 lib\winmain.lib: lib obj/winmain.obj makefile
+	@echo creating lib\winmain.lib
 	@lib /nologo /out:lib\winmain.lib obj/winmain.obj

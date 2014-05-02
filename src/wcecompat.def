@@ -1,19 +1,9 @@
 LIBRARY	"wcecompat"
 
 EXPORTS
-	?ascii2unicode@@YAXPBDPAG@Z						@1	;(void __cdecl ascii2unicode(char const *,unsigned short *))
-	?ascii2unicode@@YAXPBDPAGH@Z					@2	;(void __cdecl ascii2unicode(char const *,unsigned short *,int))
-	?dayOfYear@@YAHHHH@Z							@3	;(int __cdecl dayOfYear(int,int,int))
-	?getRedirArgs@@YA_NPAGPAPAURedirArg@@PAH@Z		@4	;(bool __cdecl getRedirArgs(unsigned short *,struct RedirArg * *,int *))
-	?processCmdLine@@YAHPAGPAPAPAD@Z				@5	;(int __cdecl processCmdLine(unsigned short *,char * * *))
-	?removeRedirArgs@@YA_NPAG@Z						@6	;(bool __cdecl removeRedirArgs(unsigned short *))
-	?ts_strcat@@YAPADPADPBG@Z						@7	;(char * __cdecl ts_strcat(char *,unsigned short const *))
-	?ts_strcat@@YAPAGPAGPBD@Z						@8	;(unsigned short * __cdecl ts_strcat(unsigned short *,char const *))
-	?ts_strdup_ascii_to_unicode@@YAPAGPBD@Z			@9	;(unsigned short * __cdecl ts_strdup_ascii_to_unicode(char const *))
-	?ts_strdup_unicode_to_ascii@@YAPADPBG@Z			@10	;(char * __cdecl ts_strdup_unicode_to_ascii(unsigned short const *))
-	?unicode2ascii@@YAXPBGPAD@Z						@11	;(void __cdecl unicode2ascii(unsigned short const *,char *))
-	?unicode2ascii@@YAXPBGPADH@Z					@12	;(void __cdecl unicode2ascii(unsigned short const *,char *,int))
-	?w32_filetime_to_time_t@@YAKPAU_FILETIME@@@Z	@13	;(unsigned long __cdecl w32_filetime_to_time_t(struct _FILETIME *))
+	unicode2ascii										@2
+	ascii2unicode										@3
+	inet_pton										@4
 	__iob_func										@14
 	_access											@15
 	_assert											@16
@@ -22,7 +12,7 @@ EXPORTS
 	_fmode											@19
 	_ftime											@20
 	_getpid											@21
-	_kbhit											@22
+	_kbhit										        @22
 	_lseek											@23
 	_open											@24
 	_putenv											@25
@@ -51,3 +41,10 @@ EXPORTS
 	stat											@48
 	strerror										@49
 	time											@50
+	freopen											@51
+	system											@52
+	tmpnam											@53
+	strftime										@54
+	mktime											@55
+	tmpfile											@56
+	rename											@57

@@ -170,14 +170,28 @@ _CRTIMP int __cdecl fwscanf(FILE *, const wchar_t *, ...);
 _CRTIMP int __cdecl fwprintf(FILE *, const wchar_t *, ...);
 _CRTIMP int __cdecl vfwprintf(FILE *, const wchar_t *, va_list);
 
-#define BUFSIZ (512)
+#ifndef BUFSIZ
+#define BUFSIZ 1024
+#endif
+#ifndef L_tmpnam
+#define L_tmpnam MAX_PATH
+#endif
 
 void perror(const char *prefix);
+
+#define _popen(A,B) ((FILE*)NULL)
+#define _pclose     (-1)
 
 #define _IOFBF	0
 #define _IOLBF	1
 #define _IONBF	2
 int setvbuf(FILE* stream, char* buffer, int mode, size_t size);
+
+FILE *freopen(const char *path, const char *mode, FILE *stream);
+FILE *tmpfile();
+char *tmpnam(char *);
+int rename(const char *oldfile, const char *newfile);
+#define remove _unlink
 
 #ifdef __cplusplus
 }

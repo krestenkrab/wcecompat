@@ -42,7 +42,7 @@ WinMain(
 	argc = processCmdLine(lpCmdLine, &argv);
 
 #if _WIN32_WCE < 0x500 || !defined(COREDLL_CORESIOA)
-	initStdHandles();	// get environment variables from ChildData
+	//	initStdHandles();	// get environment variables from ChildData
 #endif
 
 	result = main(argc, (char**)argv);

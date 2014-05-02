@@ -83,28 +83,28 @@ extern "C" {
 
 // Number of seconds between local time and UTC time, includes DST bias
 //
-LONG _localtime;
+static LONG _localtime;
 
 // Is the local time in daylight savings time
 //
-DWORD _isdst;
+static DWORD _isdst;
 
 // Bias for daylight savings time
 //
-int _dstBias;
+static int _dstBias;
 
 // Contains the time zone string
 //
-char tz_name[2][32];
+static char tz_name[2][32];
 
 // Contains the 1/1/1970 reference date/time
 //
-const SYSTEMTIME st1970 = {1970, 1,	4, 1, 0, 0, 0, 0};
+static const SYSTEMTIME st1970 = {1970, 1,	4, 1, 0, 0, 0, 0};
 
 // Contains the number of days per month for 
 // non leap and leap years
 //
-const DWORD _ytab[2][12] = 
+static const DWORD _ytab[2][12] = 
 {
   {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
   {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
@@ -141,14 +141,6 @@ static char *month[] = {
 // Forward declaration of internal functions
 ///////////////////////////////////////////////////////////////////////////////
 
-// Convert system time into seconds since 1970
-//
-LONGLONG SystemTimeToSecondsSince1970(SYSTEMTIME * st);
-
-// Convert seconds since 1970 into a system time
-//
-void SecondsSince1970ToSystemTime(const time_t_ce * timer, SYSTEMTIME * st, 
-								  BOOLEAN local);
 
 // Initialize the time zone information needed for the time_ce methods
 //
@@ -167,14 +159,6 @@ DWORD JulianDays(SYSTEMTIME * st);
 //
 static void strfmt(char *str, const char *fmt, ...);
 
-// Reentrant version of gmttime
-//
-struct tm *gmtime_r_ce(const time_t_ce *timer, struct tm *tmbuf, BOOLEAN local);
-
-// Reentrant version of localtime
-//
-struct tm *localtime_r_ce(const time_t_ce *timer, struct tm *tmbuf);
-
 ///////////////////////////////////////////////////////////////////////////////
 // Methods - The meat
 ///////////////////////////////////////////////////////////////////////////////
@@ -185,36 +169,26 @@ struct tm *localtime_r_ce(const time_t_ce *timer, struct tm *tmbuf);
 // is followed by a newline and a terminating null character, 
 // conforming a total of 26 characters. 
 //
-char *asctime_ce(const struct tm* tmptr)
+char *asctime(const struct tm* tmptr)
 {
 	static char ascbuf[ASC_BUFF_SIZE];
-    strftime_ce(ascbuf, ASC_BUFF_SIZE, "%c\n", tmptr);
+    strftime(ascbuf, ASC_BUFF_SIZE, "%c\n", tmptr);
     return ascbuf;
-}
-
-// Return number of clock ticks since process start.
-// NOTE: This differs from standard clock since GetTickCount is the
-//       number of milliseconds since system startup not process start.
-//       This will also rollover after 49.7 days of continuous system
-//       runtime.
-//
-clock_t_ce clock_ce(void)
-{
-	return GetTickCount();
 }
 
 // Convert time_t value to string in the same format as asctime.
 //
-char* ctime_ce(const time_t_ce* timer)
+char* ctime(const time_t* timer)
 {
-	return asctime_ce(localtime_ce(timer));
+	return asctime(localtime(timer));
 }
 
 // Returns the difference in seconds between the two times.
 //
-double difftime_ce(time_t_ce timer2, time_t_ce timer1)
+/*
+double difftime(time_t timer2, time_t timer1)
 {
-	time_t_ce timediff;
+	time_t timediff;
 
 	if (timer2 < timer1)
 	{
@@ -226,47 +200,7 @@ double difftime_ce(time_t_ce timer2, time_t_ce timer1)
 	}
 	return (double)timediff;
 }
-
-// Reentrant version of gmttime_ce
-//
-struct tm *gmtime_r_ce(const time_t_ce *timer, struct tm *tmbuf, BOOLEAN local)
-{
-  SYSTEMTIME	st;
-
-  SecondsSince1970ToSystemTime(timer, &st, local);
-  SetTz(&st);
-  if(_isdst) {
-    SecondsSince1970ToSystemTime(timer, &st, local);
-  }
-
-  // copy SYSTEMTIME data to tm structure
-  //
-  SystemTimeToTm(&st, tmbuf);
-
-  return tmbuf;
-
-}
-
-// Reentrant version of localtime_ce
-//
-struct tm *localtime_r_ce(const time_t_ce *timer, struct tm *tmbuf)
-{
-	return gmtime_r_ce(timer, tmbuf, TRUE);
-}
-
-// Convert a time_t value to a tm structure as UTC time. 
-//
-struct tm *gmtime_ce(const time_t_ce *timer)
-{
-	return gmtime_r_ce(timer, &tmbuf, FALSE);
-}
-
-// Convert a time_t value to a tm structure as local time. 
-//
-struct tm *localtime_ce(const time_t_ce *timer)
-{
-	return localtime_r_ce(timer, &tmbuf);
-}
+*/
 
 // time_t represents seconds since midnight January 1, 1970 UTC 
 // (coordinated universal time) in 32-bits Win32 FILETIME structure is 64-bit,
@@ -274,7 +208,7 @@ struct tm *localtime_ce(const time_t_ce *timer)
 // January 1, 1601 UTC (coordinate universal time) the time difference
 // between midnight January 1, 1970 and midnight January 1, 1601 is 11644473600 seconds
 //
-time_t_ce mktime_ce(struct tm *tptr)
+time_t mktime(struct tm *tptr)
 {
   SYSTEMTIME st;
   TmToSystemTime(tptr, &st);
@@ -368,7 +302,7 @@ time_t_ce mktime_ce(struct tm *tptr)
 	year = EPOCH_YR;
 
 	// if year is less then 1970 then return error
-	if (tptr->tm_year < year - YEAR0) return (time_t) -1;
+	if (tptr->tm_year < ((int) year - YEAR0)) return (time_t) -1;
 
 	seconds = 0;
 	day = 0;                      // Means days since day 0 now
@@ -397,7 +331,7 @@ time_t_ce mktime_ce(struct tm *tptr)
 	yday = month = 0;
 
 	// add up the number of days for the preceding months
-	while (month < tptr->tm_mon)
+	while (month < (DWORD) tptr->tm_mon)
 	{
 		yday += _ytab[LEAPYEAR(tm_year)][month];
 		month++;
@@ -426,63 +360,23 @@ time_t_ce mktime_ce(struct tm *tptr)
 	seconds += day * SECS_DAY;
 
 	// Now adjust according to timezone and daylight saving time
-	if (((_localtime > 0) && (TIME_MAX - _localtime < seconds))
-	  || ((_localtime < 0) && (seconds < -_localtime)))
+	if (((_localtime > 0) && ((TIME_MAX - _localtime) < (LONG)seconds))
+	  || ((_localtime < 0) 
+	      && ((LONG)seconds < -_localtime)))
 		  overflow++;
 
 	// Adjust for local time zone
   seconds += _localtime;
 
 	// return error if we are going to blow the max values
-	if (overflow) return (time_t_ce) -1;
+	if (overflow) return (time_t) -1;
 
-	if ((time_t_ce) seconds != seconds) return (time_t_ce) -1;
+	if ((time_t) seconds != seconds) return (time_t) -1;
 
 	// return the number of seconds since EPOCH
-	return (time_t_ce) seconds;
+	return (time_t) seconds;
 }
 
-
-// Get the current system time and convert to seconds since
-// 1/1/1970.  Store the seconds value in tloc if not a NULL pointer then
-// return the seconds value.
-//
-time_t_ce time_ce(time_t_ce *tloc)
-{
-	SYSTEMTIME	st;
-	LONGLONG	secs = 0;
-	
-	// Get current system time
-	GetSystemTime(&st);
-
-  // Set time zone information
-	//
-	SetTz(&st);
-
-	// convert system time to number of seconds since 1970
-	//
-	secs = SystemTimeToSecondsSince1970(&st);
-
-	// check for failure
-	//
-	if(secs == TIME_FAILURE)
-	{
-		return TIME_FAILURE;
-	}
-
-	// If tloc is not NULL, the return value is also stored in the location to which tloc points
-	//
-	if(tloc != NULL)
-	{
-		if(IsBadWritePtr(tloc, sizeof(time_t_ce)))
-		{
-			return TIME_FAILURE;
-		}
-		memcpy(tloc, &secs, sizeof(time_t_ce));
-	}
-	
-	return secs;
-}
 
 // The strftime function is a modified version created by the following:
 // written 6 september 1989 by jim nutt
@@ -553,7 +447,7 @@ time_t_ce time_ce(time_t_ce *tloc)
 //      buffer, not including the terminating \0, or zero if more
 //      than maxs characters were produced.
 //
-size_t strftime_ce(char *s, size_t maxs, const char *f, const struct tm *t)
+size_t strftime(char *s, size_t maxs, const char *f, const struct tm *t)
 {
 	int			w;
 	char		*p, *q, *r;
@@ -745,103 +639,6 @@ static void strfmt(char *str, const char *fmt, ...)
 	va_end(vp);
 }
 
-// internal functions
-//-----------------------------------------------------------------------------
-// Convert 100ns units since 1601 to seconds since 1970
-//
-LONGLONG SystemTimeToSecondsSince1970(SYSTEMTIME *st)
-{
-	ULARGE_INTEGER	uli;
-	FILETIME		ft;
-	ULARGE_INTEGER	uli1970;
-	FILETIME		ft1970;
-
-	// convert to a FILETIME
-	// Gives number of 100-nanosecond intervals since January 1, 1601 (UTC)
-	//
-	if(!SystemTimeToFileTime(st, &ft))
-	{
-		return TIME_FAILURE;
-	}
-
-	// convert to a FILETIME
-	// Gives number of 100-nanosecond intervals since January 1, 1970 (UTC)
-	//
-	if(!SystemTimeToFileTime(&st1970, &ft1970))
-	{
-		return TIME_FAILURE;
-	}
-
-	// Copy file time structures into ularge integer so we can do
-	// the math more easily
-	//
-	memcpy(&uli, &ft, sizeof(uli));
-	memcpy(&uli1970, &ft1970, sizeof(uli1970));
-
-	// Subtract the 1970 number of 100 ns value from the 1601 100 ns value
-	// so we can get the number of 100 ns value between 1970 and now
-	// then devide be 10,000,000 to get the number of seconds since 1970
-	//
-	uli.QuadPart = ((uli.QuadPart - uli1970.QuadPart) / 10000000);
-
-	return (LONGLONG)uli.QuadPart;
-}
-
-// Convert seconds since 1970 to a file time in 100ns units since 1601
-// then to a system time.
-//
-void SecondsSince1970ToSystemTime(const time_t_ce * timer, SYSTEMTIME * st, 
-								  BOOLEAN local)
-{
-	ULARGE_INTEGER	uli;
-	FILETIME		ft;
-	ULARGE_INTEGER	uli1970;
-	FILETIME		ft1970;
-
-	// Convert system time to file time
-	//
-	if(!SystemTimeToFileTime(&st1970, &ft1970))
-	{
-		st = NULL;
-		return;
-	}
-
-	// convert hundreds of nanosecs to secs: 1 sec = 1e7 100ns
-	// Gives number of seconds since 1/1/1601 (UTC)
-	//
-  memcpy(&uli, timer, sizeof(uli));
-  memcpy(&uli1970, &ft1970, sizeof(uli1970));
-
-	// If we want local time then subtract the number of seconds between
-	// UTC and current local time
-	//
-	if (local)
-	{
-		// Calculate 100ns since 1/1/1601 local time
-		//
-    uli.QuadPart = (((uli.QuadPart - _localtime)*10000000) + uli1970.QuadPart);
-	}
-	else
-	{
-		// Calculate 100ns since 1/1/1601 UTC
-		//
-		uli.QuadPart = ((uli.QuadPart)*10000000 + uli1970.QuadPart);
-	}
-
-	// copy data back into the ft
-	//
-	memcpy(&ft, &uli, sizeof(uli));
-
-	// convert to a SYSTEMTIME
-	//
-	if(!FileTimeToSystemTime(&ft, st))
-	{
-		st = NULL;
-		return;
-	}
-
-	return;
-}
 
 // Set the time zone information needed for the rest of the methods
 //

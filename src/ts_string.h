@@ -26,11 +26,10 @@
 #include <string.h>
 #include <windows.h>
 
-
 void ascii2unicode(const char* ascii, WCHAR* unicode);
 void unicode2ascii(const WCHAR* unicode, char* ascii);
-void ascii2unicode(const char* ascii, WCHAR* unicode, int maxChars);
-void unicode2ascii(const WCHAR* unicode, char* ascii, int maxChars);
+extern "C" void ascii2unicode(const char* ascii, WCHAR* unicode, int maxChars);
+extern "C" void unicode2ascii(const WCHAR* unicode, char* ascii, int maxChars);
 
 
 //

@@ -45,3 +45,4 @@ FILE* __cdecl __iob_func()
 	static FILE *standardOutputs[] = { stdin, stdout, stderr };
 	return standardOutputs[0];
 }
+

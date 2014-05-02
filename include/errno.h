@@ -30,6 +30,8 @@ extern "C" {
 
 extern int errno;
 
+#define SET_ERRNO(X) errno=X
+
 #define ENOENT	(2)
 #define EBADF	(9)
 #define EAGAIN	(11)
