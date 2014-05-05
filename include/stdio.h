@@ -84,6 +84,7 @@ _CRTIMP int    __cdecl sprintf(char *, const char *, ...);
 _CRTIMP int    __cdecl vsprintf(char *, const char *, va_list);
 _CRTIMP int    __cdecl _snprintf(char *, size_t, const char *, ...);
 _CRTIMP int    __cdecl _vsnprintf(char *, size_t, const char *, va_list);
+#define vsnprintf _vsnprintf
 
 // Always present since wsprintfW (used by kernel) redirects to these
 _CRTIMP int __cdecl swprintf(wchar_t *, const wchar_t *, ...);
@@ -111,6 +112,9 @@ _CRTIMP int    __cdecl fputs(const char *, FILE *);
 _CRTIMP int    __cdecl ungetc(int, FILE *);
 
 // ANSI functions for general buffered file handling
+#ifdef fdopen
+#undef fdopen
+#endif
 _CRTIMP FILE * __cdecl fopen(const char *, const char *);
 _CRTIMP FILE*  __cdecl fdopen(int, const char *);
 _CRTIMP int    __cdecl fscanf(FILE *, const char *, ...);

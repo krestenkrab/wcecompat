@@ -22,6 +22,7 @@
 #ifndef __wcecompat__IO_H__
 #define __wcecompat__IO_H__
 
+#include <stddef.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -30,16 +31,19 @@ extern "C" {
 
 int __cdecl _access(const char *pathname, int mode);
 int __cdecl _open(const char* filename, int flags, int mode);
-int __cdecl _wopen(const unsigned short* filename, int flags, int mode);
+int __cdecl _wopen(const wchar_t* filename, int flags, int mode);
+  // int __cdecl _wopen(const unsigned short* filename, int flags, int mode);
 int __cdecl _close(int fd);
 long __cdecl _lseek(int fd, long offset, int whence);
 int __cdecl _read(int fd, void *buffer, unsigned int count);
 int __cdecl _write(int fd, const void *buffer, unsigned int count);
 int __cdecl _unlink(const char *pathname);
 int __cdecl _ftruncate(int fd, long length);
+int __cdecl _setmode(int fd, int mode);
 
 #define access _access
 #define open _open
+#define wopen _wopen
 #define wopen _wopen
 #define close _close
 #define lseek _lseek
@@ -47,6 +51,7 @@ int __cdecl _ftruncate(int fd, long length);
 #define write _write
 #define unlink _unlink
 #define ftruncate _ftruncate
+#define setmode _setmode
 
 
 #ifndef O_NONBLOCK      /* Non Blocking Open */

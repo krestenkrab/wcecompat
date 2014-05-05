@@ -4,6 +4,7 @@ EXPORTS
 	unicode2ascii										@2
 	ascii2unicode										@3
 	inet_pton										@4
+	_wopen											@5
 	__iob_func										@14
 	_access											@15
 	_assert											@16
