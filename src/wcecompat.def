@@ -27,7 +27,7 @@ EXPORTS
 	clock											@33
 	closePipe										@34
 	createPipe										@35
-	errno											@36
+;	errno											@36
 	fdopen											@37
 	getenv											@38
 	getservbyname									@39

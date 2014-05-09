@@ -30,13 +30,13 @@ int _waccess( const wchar_t *path, int mode )
     SHFILEINFO fi;
     if( !SHGetFileInfo( path, 0, &fi, sizeof(fi), SHGFI_ATTRIBUTES ) )
     {
-        errno = ENOENT;
+      SET_ERRNO( ENOENT );
         return -1;
     }
     // existence ?
     if( mode == 0 )
       {
-	errno = ENOENT;
+	SET_ERRNO( ENOENT );
         return 0;
       }
     // write permission ?
@@ -44,7 +44,7 @@ int _waccess( const wchar_t *path, int mode )
     {
         if( fi.dwAttributes & SFGAO_READONLY )
         {
-            errno = EACCES;
+	  SET_ERRNO( EACCES );
             return -1;
         }
     }
@@ -57,7 +57,7 @@ int access(const char* path, int mode)
     
     if( !MultiByteToWideChar( CP_ACP, 0, path, -1, wpath, _MAX_PATH ) )
     {
-        errno = ENOENT;
+      SET_ERRNO( ENOENT );
         return -1;
     }
     return _waccess( wpath, mode );

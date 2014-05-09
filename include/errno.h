@@ -23,16 +23,22 @@
 #define __wcecompat__ERRNO_H__
 
 
+#include <winbase.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+#define errno (GetLastError())
+#define SET_ERRNO(X) (SetLastError(X))
 
-extern int errno;
-
-#define SET_ERRNO(X) errno=X
-
+#define EPERM   (1)
 #define ENOENT	(2)
+#define ESRCH   (3)
+#define EINTR   (4)
+#define EIO     (5)
+#define ENXIO   (6)
+#define E2BIG   (7)
 #define EBADF	(9)
 #define EAGAIN	(11)
 #define ENOMEM	(12)

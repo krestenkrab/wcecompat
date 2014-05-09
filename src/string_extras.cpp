@@ -69,10 +69,10 @@ char* messages[] = {
 };
 const int NUM_MESSAGES = sizeof(messages)/sizeof(messages[0]);
 
-
+#undef strerror
 char* strerror(int errnum)
 {
-	if (errnum < NUM_MESSAGES)
+	if (errnum > 0 && errnum < NUM_MESSAGES)
 		return messages[errnum];
 	return "Unknown error";
 }

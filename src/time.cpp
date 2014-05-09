@@ -402,7 +402,7 @@ time_t w32_filetime_to_time_t(FILETIME* ft)
 	// make sure ft is at least ftJan1970
 	if (cmp64((ULARGE_INTEGER*)ft, (ULARGE_INTEGER*)&ftJan1970) < 0)
 	{
-		errno = -1;
+	        SET_ERRNO( -1 );
 		return -1;
 	}
 
@@ -415,7 +415,7 @@ time_t w32_filetime_to_time_t(FILETIME* ft)
 	// bound check result
 	if (ft->dwHighDateTime != 0 || ft->dwLowDateTime >= 2147483648)
 	{
-		errno = -1;
+	        SET_ERRNO( -1 );
 		return -1;		// value is too big to return in time_t
 	}
 
@@ -433,7 +433,7 @@ time_t time(time_t* t)
 	GetSystemTime(&stNow);
 	if (!SystemTimeToFileTime(&stNow, &ftNow))
 	{
-		errno = -1;
+	        SET_ERRNO( -1 );
 		return -1;
 	}
 
